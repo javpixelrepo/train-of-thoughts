@@ -1,0 +1,70 @@
+# Habitat residents
+
+Sam and Maya human geometry, rigs and authored animation clips from Innerscene's
+CC0 3D Parts Library. Based on MakeHuman / MPFB CC0 assets; original clothing and
+motions by Innerscene. These are authored skeletal animations, not motion capture.
+
+- https://www.innerscene.com/tools/library/3d-parts/locomotion-collection-maya-3d-person-animated-1499b2fd
+- https://www.innerscene.com/tools/library/3d-parts/locomotion-collection-sam-3d-person-animated-dc23800f
+- License: CC0 1.0 Universal, https://creativecommons.org/publicdomain/zero/1.0/
+
+Local adaptations: texture removal, unused mesh removal, three retained animation
+clips, shared geometry, grayscale cel materials, skinned outlines, seated poses
+and unobstructed gallery paths. `prepare.py` reproduces the reduced GLBs from the
+two downloaded source GLBs; runtime only requests `maya.glb` and `sam.glb`.
+
+Runtime garment refinement uses one skin-weight-preserving Loop subdivision pass.
+Body and face topology, proportions and the 56-bone rigs are retained. Clavicles,
+elbows, wrists and articulated fingers participate in the new secondary motion.
+
+Walking uses a retargeted human motion-capture cycle from CMU subject 07,
+motion 01, combined with contact-constrained foot placement and arm clearance.
+The upper-body rotations, arm directions and swing trajectory come from the
+recording; stride distance and floor contacts adapt to the apartment paths.
+This is not a trained motion-matching model or a rigid-body simulation.
+
+- Source: https://mocap.cs.cmu.edu/ (subject 07, motion 01: walking)
+- BVH conversion by Bruce Hahne, mirrored at
+  https://github.com/una-dinosauria/cmu-mocap/blob/master/data/007/07_01.bvh
+- Conversion terms: https://github.com/una-dinosauria/cmu-mocap/blob/master/READMEFIRST.txt
+- CMU allows use in research and commercial products, but prohibits resale of
+  the motion data itself, including converted data. The BVH converter adds no
+  further restrictions. These terms apply to `cmu-07-01.bvh` and `walk-cycle.js`.
+- The data used in this project was obtained from mocap.cs.cmu.edu. The
+  database was created with funding from NSF EIA-0196217.
+- `prepare-walk.mjs` extracts a heading-normalized periodic cycle and generates
+  `walk-cycle.js` (about 86 kB). The app does not load the full BVH at runtime.
+
+Coffee, painting and typing now use CMU subject 79 activity captures:
+
+- 79_38: drinking water; adapted to a seated cup sip instead of a bottle.
+- 79_43: painting; cropped brush strokes retargeted to the actual easel.
+- 79_85: typing on a laptop; cropped typing interval adapted to the desktop.
+- Source BVHs: https://github.com/una-dinosauria/cmu-mocap/tree/master/data/079
+- Subject 79 was recorded at 60 Hz. The BVH conversion's uniform 120 Hz header
+  is corrected during extraction, so activities retain their recorded speed.
+- `prepare-activities.mjs` generates `activity-clips.js`. The same CMU terms
+  above apply to these source and converted files. They are used as in-app
+  character animation, not offered as a standalone motion-data product.
+
+Recorded torso/head rotations, wrist paths and elbow motion are combined with
+contact-constrained IK for the furniture and props. Finger capture is absent in
+CMU's data: the cup handle grip, brush pinch and key taps are authored constraints,
+not claimed as recorded finger motion. Rest and balcony viewing remain procedural.
+The cup grip was checked against a real-hand product photograph:
+https://www.nikko-tabletop.jp/products/3100-2010
+
+Technical references by Daniel Holden:
+
+- Foot locking, toe/heel contacts and preserving posture:
+  https://theorangeduck.com/page/inverse-kinematics-foot-locking
+- Critically damped springs and continuous velocity at target changes:
+  https://theorangeduck.com/page/spring-roll-call
+- Coordinating displacement and animation:
+  https://theorangeduck.com/page/code-vs-data-driven-displacement
+
+The spring state advances at 120 Hz independently of display frame rate. Support
+feet remain planted while the body and arms follow. Palm orientation is aligned
+with the forearm; the arm chain corrects clearance for palms, fingers and thumbs
+against the moving thighs and pelvis. Coffee, painting, typing, seated rest and
+balcony gestures retain their separate reset-pose and IK pipeline.

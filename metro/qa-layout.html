@@ -1,0 +1,17 @@
+<!doctype html><meta charset="utf-8"><title>Train of Thoughts — Square layout check</title>
+<style>body{font:14px monospace;background:#fafaf7}iframe{border:1px solid #aaa;transform-origin:top left}#results{white-space:pre-wrap}</style>
+<h1>Square scene layout</h1><div id="results">Checking…</div><iframe title="Layout preview"></iframe>
+<script type="module">
+const html=await(await fetch('./index.html')).text(),doc=new DOMParser().parseFromString(html,'text/html');
+doc.querySelectorAll('script,#loading').forEach(n=>n.remove());
+const base=doc.createElement('base');base.href=new URL('./',location.href).href;doc.head.prepend(base);
+const frame=document.querySelector('iframe'),rows=[];
+frame.srcdoc=doc.documentElement.outerHTML;await new Promise(resolve=>frame.onload=resolve);
+for(const [w,h]of [[1440,900],[900,1200],[390,844]]){
+ frame.style.width=w+'px';frame.style.height=h+'px';
+ await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+ const r=frame.contentDocument.querySelector('#stage').getBoundingClientRect(),sidebar=frame.contentDocument.querySelector('aside').getBoundingClientRect();
+ rows.push({viewport:[w,h],stage:[r.width,r.height],sidebarWidth:sidebar.width,square:Math.abs(r.width-r.height)<1});
+}
+document.querySelector('#results').textContent=JSON.stringify(rows,null,2);document.body.dataset.ready='true';
+</script>

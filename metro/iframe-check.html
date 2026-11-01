@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Train of Thoughts — iframe check</title>
+<style>body{margin:24px;background:#e8e8e4;color:#333;font:14px system-ui}nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}button{padding:8px 12px}iframe{display:block;border:0;background:#fafaf7;max-width:100%}h1{font-size:20px}#result{margin:12px 0}</style>
+<h1>Train of Thoughts · iframe compatibility</h1>
+<nav><button id="square">Square</button><button id="wide">Wide</button><button id="portrait">Portrait</button><button id="fallback">Without native decompression</button><button id="no-webgl">Without WebGL</button><button id="normal">Normal loading</button><button id="toggle">Hide / show</button></nav>
+<p id="result">Sandbox: allow-scripts only · 640 × 640</p>
+<iframe id="art" title="Train of Thoughts" sandbox="allow-scripts" width="640" height="640" src="exports/Train-of-Thoughts.html"></iframe>
+<script>
+const art=document.querySelector('#art'),result=document.querySelector('#result');
+for(const [id,w,h] of [['square',640,640],['wide',900,420],['portrait',360,640]])document.querySelector('#'+id).onclick=()=>{art.width=w;art.height=h;result.textContent=`Sandbox: allow-scripts only · ${w} × ${h}`;};
+document.querySelector('#normal').onclick=()=>{art.removeAttribute('srcdoc');art.src='exports/Train-of-Thoughts.html?check='+Date.now();};
+document.querySelector('#toggle').onclick=()=>art.style.display=art.style.display==='none'?'block':'none';
+async function simulate(code){const html=await(await fetch('exports/Train-of-Thoughts.html',{cache:'no-store'})).text();art.srcdoc=html.replace('<script>','<script>'+code+'<\/script><script>');}
+document.querySelector('#fallback').onclick=()=>simulate('window.DecompressionStream=undefined;');
+document.querySelector('#no-webgl').onclick=()=>simulate('const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(kind,...args){return kind===\'webgl2\'?null:original.call(this,kind,...args)};');
+</script></html>

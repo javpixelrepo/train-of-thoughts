@@ -1,0 +1,6 @@
+node_modules/
+*.log
+__pycache__/
+metro/exports/*.mp4
+metro/exports/*.webm
+metro/exports/standalone-build.json

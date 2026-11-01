@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-29",
+  "scope": "Lossless static geometry and scene traversal optimization",
+  "retained": [
+    "Spatial batches of complete opaque triangles and outline segments",
+    "Bit-identical vertex indexing including normals and all attributes",
+    "Hierarchical translated bounds for city culling",
+    "Frozen local transforms for static construction; animated nodes and whole character rigs remain dynamic"
+  ],
+  "quality": {
+    "resolutionChanged": false,
+    "geometrySimplified": false,
+    "animationRateReduced": false,
+    "transparentPrimitiveOrderPreserved": true
+  },
+  "checksPassed": {
+    "staticGeometry": "Identical primitive bytes and conservative bounds",
+    "worldMatrixComparisons": 26635,
+    "visibilityComparisons": 72702,
+    "staticTransformsFrozen": 3655,
+    "geometry": "Cabin floor, bridge endpoints and 3000 hidden recycling transitions",
+    "animationReentry": "Identical visible poses after skipping offscreen work",
+    "pauseResume": "720 pose samples",
+    "walkerOrientation": "57600 comparisons, 48 pauses, 24 restores",
+    "recordedCamera": "Static camera precision and continuous 60fps sample sequence; no video exported",
+    "streetContinuity": "10 simulated minutes, 352 bridge arrivals, 99 sidewalk arrivals"
+  },
+  "browser": {
+    "stage": [1291, 1291],
+    "baselineOpeningCpuMs": 11.364,
+    "finalOpeningCpuMs": 9.803,
+    "baselineFocusedCpuMs": 9.88,
+    "finalFocusedCpuMs": 8.16,
+    "note": "Short live samples, with changing procedural scenery. FPS varied considerably; these are observations, not fixed-rate guarantees.",
+    "verified": ["Open carriage", "Zoom 5.43", "Orbit limit", "Direct switch to cabin", "Return to overview", "Standalone sandboxed iframe at 360x640 and 900x420"],
+    "newErrorsAfterFinalReload": 0
+  },
+  "standaloneSha256": "a05a3da1b2f92a50a854c2788fb8ff3355c8114468ae9f7912e8f92d4e059250"
+}
