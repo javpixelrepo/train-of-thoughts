@@ -11,7 +11,7 @@ Requirements: Node.js 20 or newer, npm, Python 3, and a browser with WebGL 2.
 Install the locked dependencies and start a local web server from the repository root:
 
 ```sh
-npm ci --prefix mecha
+npm ci --prefix three-deps
 npm ci --prefix metro/standalone-tools
 python -m http.server 4173 --bind 127.0.0.1
 ```
@@ -23,8 +23,8 @@ Click a carriage or the cabin to look inside, then click a character's face bubb
 ## Project structure
 
 - `metro/`: scene, procedural city and train models, interactions, UI, recording, standalone builder, and checks.
-- `habitat/`: shared character rigs, animation, motion data, source and optimized character assets, and preparation tools.
-- `mecha/`: locked Three.js dependency used by the app and checks.
+- `characters/`: shared character rigs, animation, motion data, source and optimized character assets, and preparation tools.
+- `three-deps/`: locked Three.js dependency used by the app and checks.
 - `metro/standalone-tools/`: locked dependencies for rebuilding the single-file HTML artwork.
 - `metro/exports/Train-of-Thoughts.html`: current downloadable standalone artwork. Generated video exports are not included.
 - `index.html` and `embed.html`: ready-to-run standalone artwork and responsive iframe example.
@@ -40,9 +40,9 @@ node metro/build-standalone.mjs
 Examples of project checks (run from the repository root):
 
 ```sh
-node --experimental-loader ./habitat/assets/people/node-importmap.mjs metro/check-geometry.mjs
-node --experimental-loader ./habitat/assets/people/node-importmap.mjs metro/check-static-transforms.mjs
-node --experimental-loader ./habitat/assets/people/node-importmap.mjs metro/check-performance.mjs
+node --experimental-loader ./characters/assets/people/node-importmap.mjs metro/check-geometry.mjs
+node --experimental-loader ./characters/assets/people/node-importmap.mjs metro/check-static-transforms.mjs
+node --experimental-loader ./characters/assets/people/node-importmap.mjs metro/check-performance.mjs
 ```
 
 The standalone artwork fills its iframe and can run without external asset requests. See `embed.html` for an example. The source application uses local npm dependencies and its own sidebar.
@@ -53,4 +53,4 @@ For local MP4 export, install FFmpeg, start `python metro/video-server.py` in a 
 
 ## Credits
 
-The scene is rendered in real time with Three.js. Third-party code, character assets and motion attribution are listed in [THIRD_PARTY_NOTICES.txt](THIRD_PARTY_NOTICES.txt) and [habitat/assets/people/CREDITS.md](habitat/assets/people/CREDITS.md).
+The scene is rendered in real time with Three.js. Third-party code, character assets and motion attribution are listed in [THIRD_PARTY_NOTICES.txt](THIRD_PARTY_NOTICES.txt) and [characters/assets/people/CREDITS.md](characters/assets/people/CREDITS.md).

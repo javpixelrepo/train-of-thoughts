@@ -6,7 +6,7 @@ import {clone} from 'three/addons/utils/SkeletonUtils.js';
 import {shareSkeletons} from './rig-performance.js';
 
 for(const name of ['maya','sam']){
- const bytes=await fs.readFile(new URL(`../habitat/assets/people/${name}.glb`,import.meta.url));
+ const bytes=await fs.readFile(new URL(`../characters/assets/people/${name}.glb`,import.meta.url));
  const source=await new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength),'');
  const body=clone(source.scene),other=clone(source.scene),meshes=[];
  body.traverse(o=>{if(o.isSkinnedMesh)meshes.push(o);if(o.isBone&&o.name==='spine_01')o.rotation.z+=.2;});

@@ -1,6 +1,6 @@
 import fs from 'node:fs';
-import * as T from '../../../mecha/node_modules/three/build/three.module.js';
-import { GLTFLoader } from '../../../mecha/node_modules/three/examples/jsm/loaders/GLTFLoader.js';
+import * as T from '../../../three-deps/node_modules/three/build/three.module.js';
+import { GLTFLoader } from '../../../three-deps/node_modules/three/examples/jsm/loaders/GLTFLoader.js';
 const file=fs.readFileSync(new URL('./sam.glb',import.meta.url));
 const gltf=await new GLTFLoader().parseAsync(file.buffer.slice(file.byteOffset,file.byteOffset+file.byteLength),'');
 const mixer=new T.AnimationMixer(gltf.scene);

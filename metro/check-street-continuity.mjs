@@ -11,7 +11,7 @@ const initialSeed=seed;
 const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
 const model=makeWorld();model.updateTravel(0);
 const residents=await makePassengers(model,{loadSource:async name=>{
- const bytes=await fs.readFile(new URL(`../habitat/assets/people/${name}.glb`,import.meta.url));
+ const bytes=await fs.readFile(new URL(`../characters/assets/people/${name}.glb`,import.meta.url));
  return new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength),'');
 }});
 const life=makeStreetLife(model,residents,{random}),point=new T.Vector3();

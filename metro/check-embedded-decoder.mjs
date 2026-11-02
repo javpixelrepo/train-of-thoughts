@@ -5,7 +5,7 @@ import {decodeEmbedded} from './decode-embedded.js';
 const native=globalThis.DecompressionStream;
 try{
  for(const name of ['maya','sam']){
-  const original=await readFile(new URL(`../habitat/assets/people/${name}.glb`,import.meta.url));
+  const original=await readFile(new URL(`../characters/assets/people/${name}.glb`,import.meta.url));
   const encoded=gzipSync(original).toString('base64');
   for(const fallback of [false,true]){
    globalThis.DecompressionStream=fallback?undefined:native;

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
-import * as T from '../../../mecha/node_modules/three/build/three.module.js';
-import { GLTFLoader } from '../../../mecha/node_modules/three/examples/jsm/loaders/GLTFLoader.js';
+import * as T from '../../../three-deps/node_modules/three/build/three.module.js';
+import { GLTFLoader } from '../../../three-deps/node_modules/three/examples/jsm/loaders/GLTFLoader.js';
 import { FLOORS } from '../../typologies.js';
 import { makeResidents } from '../../people.js';
 

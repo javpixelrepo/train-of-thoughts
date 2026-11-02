@@ -1,6 +1,6 @@
 import * as T from 'three';
 import {makeTrafficCar} from './model.js?v=38';
-import {createWalker} from '../habitat/locomotion.js?v=4';
+import {createWalker} from '../characters/locomotion.js?v=4';
 
 // Vehicles and residents have their own clocks; none is baked into a scenery
 // segment. A supplied RNG makes long-run spacing/contact checks reproducible.

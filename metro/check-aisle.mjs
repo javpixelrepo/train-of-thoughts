@@ -6,7 +6,7 @@ import {makeWorld} from './model.js';
 import {makePassengers} from './passengers.js';
 const model=makeWorld();
 const residents=await makePassengers(model,{loadSource:async name=>{
- const bytes=await fs.readFile(new URL(`../habitat/assets/people/${name}.glb`,import.meta.url));
+ const bytes=await fs.readFile(new URL(`../characters/assets/people/${name}.glb`,import.meta.url));
  return new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength),'');
 }});
 const person=residents.people.find(p=>p.role==='aisle-walker'),car=model.cars[person.car];

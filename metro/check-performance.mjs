@@ -3,8 +3,8 @@ import fs from 'node:fs/promises';
 import * as T from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {makePassengers} from './passengers.js';
-import {createWalker} from '../habitat/locomotion.js?v=3';
-const loadSource=async name=>{const data=await fs.readFile(new URL(`../habitat/assets/people/${name}.glb`,import.meta.url));return new GLTFLoader().parseAsync(data.buffer.slice(data.byteOffset,data.byteOffset+data.byteLength),'');};
+import {createWalker} from '../characters/locomotion.js?v=3';
+const loadSource=async name=>{const data=await fs.readFile(new URL(`../characters/assets/people/${name}.glb`,import.meta.url));return new GLTFLoader().parseAsync(data.buffer.slice(data.byteOffset,data.byteOffset+data.byteLength),'');};
 async function fixture(){const root=new T.Group();root.position.y=17.33;const cars=[0,1,2].map(i=>{const c=new T.Group();c.userData.car=i;c.position.x=(i-1)*8.9;root.add(c);return c;});return makePassengers({cars},{loadSource});}
 const full=await fixture(),culled=await fixture();
 for(let i=0;i<240;i++){full.update(1/60);culled.update(1/60,()=>i===239);}

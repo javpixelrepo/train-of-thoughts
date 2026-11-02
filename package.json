@@ -6,7 +6,7 @@
   "scripts": {
     "start": "python -m http.server 4173 --bind 127.0.0.1",
     "build:standalone": "node metro/build-standalone.mjs",
-    "check:geometry": "node --experimental-loader ./habitat/assets/people/node-importmap.mjs metro/check-geometry.mjs",
-    "check:performance": "node --experimental-loader ./habitat/assets/people/node-importmap.mjs metro/check-performance.mjs"
+    "check:geometry": "node --experimental-loader ./characters/assets/people/node-importmap.mjs metro/check-geometry.mjs",
+    "check:performance": "node --experimental-loader ./characters/assets/people/node-importmap.mjs metro/check-performance.mjs"
   }
 }

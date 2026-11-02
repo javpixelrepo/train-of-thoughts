@@ -5,7 +5,7 @@ import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {makePassengers} from './passengers.js';
 const root=new T.Group();root.position.y=17.33;
 const cars=[0,1,2].map(i=>{const c=new T.Group();c.userData.car=i;c.position.x=(i-1)*8.9;root.add(c);return c;});
-const passengers=await makePassengers({cars},{loadSource:async name=>{const b=await fs.readFile(new URL(`../habitat/assets/people/${name}.glb`,import.meta.url));return new GLTFLoader().parseAsync(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength),'');}});
+const passengers=await makePassengers({cars},{loadSource:async name=>{const b=await fs.readFile(new URL(`../characters/assets/people/${name}.glb`,import.meta.url));return new GLTFLoader().parseAsync(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength),'');}});
 const measurements=[];
 for(const time of [0,1,3]){
  passengers.update(time);root.updateMatrixWorld(true);

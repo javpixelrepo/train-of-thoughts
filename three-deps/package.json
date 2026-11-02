@@ -1,0 +1,7 @@
+{
+  "name": "train-of-thoughts-three-deps",
+  "private": true,
+  "dependencies": {
+    "three": "^0.180.0"
+  }
+}

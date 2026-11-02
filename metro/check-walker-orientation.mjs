@@ -3,11 +3,11 @@ import fs from 'node:fs/promises';
 import * as T from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {makePassengers} from './passengers.js';
-import {createWalker} from '../habitat/locomotion.js';
+import {createWalker} from '../characters/locomotion.js';
 
 const root=new T.Group(),cars=[0,1,2].map(i=>{const c=new T.Group();c.userData.car=i;root.add(c);return c;});
 const residents=await makePassengers({cars},{loadSource:async name=>{
- const bytes=await fs.readFile(new URL(`../habitat/assets/people/${name}.glb`,import.meta.url));
+ const bytes=await fs.readFile(new URL(`../characters/assets/people/${name}.glb`,import.meta.url));
  return new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength),'');
 }});
 let comparisons=0,pauses=0,restores=0,maxPositionError=0;

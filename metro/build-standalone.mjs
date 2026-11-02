@@ -8,7 +8,7 @@ import {loadingStyle,loadingMarkup,loadingRuntime,loadingFailure} from './standa
 
 // Build an independent, offline artwork. The interactive application is read-only.
 const dir=path.dirname(fileURLToPath(import.meta.url));
-const project=path.dirname(dir),three=path.join(project,'mecha/node_modules/three');
+const project=path.dirname(dir),three=path.join(project,'three-deps/node_modules/three');
 const original=await readFile(path.join(dir,'scene.js'),'utf8');
 let entry=original;
 // Download controls belong only to the full application.
@@ -60,7 +60,7 @@ entry=imports+'\n'+loadingFailure+'\n(async()=>{\n'+loadingRuntime+implementatio
 
 const compressed={};
 for(const name of ['maya','sam']){
- const bytes=await readFile(path.join(project,`habitat/assets/people/${name}.glb`));
+ const bytes=await readFile(path.join(project,`characters/assets/people/${name}.glb`));
  const gltf=JSON.parse(bytes.subarray(20,20+bytes.readUInt32LE(12)).toString());
  if(gltf.buffers.some(b=>b.uri)||gltf.images?.some(i=>i.uri))throw new Error('Unexpected external GLB dependency');
  compressed[name]=gzipSync(bytes,{level:9}).toString('base64');
@@ -83,7 +83,7 @@ const result=await build({
   api.onResolve({filter:/^three(?:\/|$)/},args=>({path:args.path==='three'?path.join(three,'build/three.module.js'):path.join(three,'examples/jsm',args.path.slice('three/addons/'.length))}));
   api.onResolve({filter:/\?v=/},args=>({path:path.resolve(args.resolveDir,args.path.split('?')[0])}));
   // Offline loader is injected above: omit the application-only URL fallback.
-  api.onLoad({filter:/[\\/]metro[\\/]passengers\.js$/},async args=>({contents:(await readFile(args.path,'utf8')).replace("loadSource?loadSource(n):loader.loadAsync(new URL(`../habitat/assets/people/${n}.glb`,import.meta.url).href)",'loadSource(n)'),loader:'js'}));
+  api.onLoad({filter:/[\\/]metro[\\/]passengers\.js$/},async args=>({contents:(await readFile(args.path,'utf8')).replace("loadSource?loadSource(n):loader.loadAsync(new URL(`../characters/assets/people/${n}.glb`,import.meta.url).href)",'loadSource(n)'),loader:'js'}));
  }}]
 });
 const inputs=Object.keys(result.metafile.inputs);

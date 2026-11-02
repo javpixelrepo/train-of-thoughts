@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><title>Train of Thoughts — Expressions</title><style>
 body{background:#fafaf7;color:#262626;font:14px monospace;margin:36px}main{display:grid;grid-template-columns:repeat(4,minmax(180px,1fr));gap:24px}article{border:1px solid #bbb;padding:18px}canvas{width:128px;height:128px;display:block;margin:auto}h2{font-size:16px}p{line-height:1.5;white-space:pre-line}small{color:#777}
-</style><script type="importmap">{"imports":{"three":"../mecha/node_modules/three/build/three.module.js","three/addons/":"../mecha/node_modules/three/examples/jsm/"}}</script></head><body><h1>Passenger expressions</h1><main></main><script type="module">
+</style><script type="importmap">{"imports":{"three":"../three-deps/node_modules/three/build/three.module.js","three/addons/":"../three-deps/node_modules/three/examples/jsm/"}}</script></head><body><h1>Passenger expressions</h1><main></main><script type="module">
 import {STORIES} from './narrative.js?v=5';import {drawFace} from './passenger-labels.js?v=19';
 for(const [name,thought,mood]of STORIES){const article=document.createElement('article'),canvas=document.createElement('canvas'),title=document.createElement('h2'),label=document.createElement('small'),text=document.createElement('p');canvas.width=canvas.height=256;drawFace(canvas.getContext('2d'),mood);title.textContent=name;label.textContent=mood;text.textContent=thought;article.append(canvas,title,label,text);document.querySelector('main').append(article);}
 </script></body></html>

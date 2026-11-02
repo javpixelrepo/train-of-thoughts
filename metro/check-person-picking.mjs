@@ -6,7 +6,7 @@ import {makePassengers} from './passengers.js';
 import {makePersonPicker} from './person-picking.js';
 const root=new T.Group(),cars=[0,1,2].map(i=>{const c=new T.Group();c.userData.car=i;c.position.x=i*9;root.add(c);return c;});
 const residents=await makePassengers({cars},{loadSource:async name=>{
- const bytes=await fs.readFile(new URL(`../habitat/assets/people/${name}.glb`,import.meta.url));
+ const bytes=await fs.readFile(new URL(`../characters/assets/people/${name}.glb`,import.meta.url));
  return new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength),'');
 }});
 residents.update(1/60);root.updateMatrixWorld(true);

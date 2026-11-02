@@ -1,13 +1,13 @@
 import * as T from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {clone} from 'three/addons/utils/SkeletonUtils.js';
-import {celMaterial,outlineMaterial} from '../habitat/people.js';
-import {refineHumanAsset,MotionSpring,turnBone} from '../habitat/human-detail.js';
-import {createActivity,reach,arm} from '../habitat/resident-motion.js?v=3';
+import {celMaterial,outlineMaterial} from '../characters/people.js';
+import {refineHumanAsset,MotionSpring,turnBone} from '../characters/human-detail.js';
+import {createActivity,reach,arm} from '../characters/resident-motion.js?v=3';
 import {CAB_VIEW} from './narrative.js?v=5';
 import {tailorMaleShirt} from './human-fit.js';
 import {shareSkeletons} from './rig-performance.js';
-import {createWalker} from '../habitat/locomotion.js?v=4';
+import {createWalker} from '../characters/locomotion.js?v=4';
 
 const V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z);
 const local=(p,x,y,z)=>p.root.localToWorld(V(x,y,z));
@@ -63,7 +63,7 @@ function gripPole(p,parent,grip){
 }
 export async function makePassengers(model,{loadSource}={}){
  const loader=new GLTFLoader();
- const sources=await Promise.all(['maya','sam'].map(n=>loadSource?loadSource(n):loader.loadAsync(new URL(`../habitat/assets/people/${n}.glb`,import.meta.url).href)));
+ const sources=await Promise.all(['maya','sam'].map(n=>loadSource?loadSource(n):loader.loadAsync(new URL(`../characters/assets/people/${n}.glb`,import.meta.url).href)));
  sources.forEach(refineHumanAsset);
  tailorMaleShirt(sources[1]);
  const people=[],updates=[];
